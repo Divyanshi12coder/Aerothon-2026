@@ -6,8 +6,8 @@ from predict import predict_engine_state
 
 
 app = FastAPI(
-    title="Turbojet Digital Twin API",
-    description="Physics-Informed Digital Twin for Turbojet Health Monitoring",
+    title="AeroTwin Digital Twin API",
+    description="Physics-Informed Four-Stage Turbojet Health Monitoring API",
     version="1.0.0"
 )
 
@@ -40,28 +40,27 @@ class EngineInput(BaseModel):
 @app.get("/")
 def home():
     return {
-        "message": "Turbojet Digital Twin API is running",
-        "status": "active"
+        "message": "AeroTwin Digital Twin API is running",
+        "status": "active",
+        "modules": [
+            "Physics-informed feature engineering",
+            "Health monitoring",
+            "Performance prediction",
+            "Uncertainty quantification",
+            "Fault diagnosis",
+            "Predictive maintenance",
+            "RUL estimation",
+            "Virtual sensors"
+        ]
     }
 
 
 @app.post("/predict")
 def predict(input_data: EngineInput):
     data = input_data.model_dump()
-
-    predictions = predict_engine_state(data)
-
-    overall_health = predictions["OverallHealth"]
-
-    if overall_health >= 0.90:
-        status = "Healthy"
-    elif overall_health >= 0.80:
-        status = "Warning"
-    else:
-        status = "Critical"
+    result = predict_engine_state(data)
 
     return {
         "input": data,
-        "predictions": predictions,
-        "engine_status": status
+        **result
     }
