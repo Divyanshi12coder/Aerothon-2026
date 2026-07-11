@@ -219,12 +219,12 @@ npm run dev
 # 👨‍💻 Authors
 
 Team Name 
- Vayucops
+- Vayucops
 
 Members
- Divyanshi(Leader)
- Vishal Raj
- Vaishnavi Jaiswal
+- Divyanshi(Leader)
+- Vishal Raj
+- Vaishnavi Jaiswal
 
 ---
 
