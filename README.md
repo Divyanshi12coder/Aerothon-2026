@@ -73,27 +73,8 @@ Digital Twin Prediction
 
 
 
-# 📡 API
 
-POST /predict
 
-Example Request
-
-```json
-{
-  ...
-}
-```
-
-Example Response
-
-```json
-{
- ...
-}
-```
-
----
 
 
 
