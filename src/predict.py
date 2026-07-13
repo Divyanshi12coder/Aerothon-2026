@@ -1,18 +1,22 @@
 import pandas as pd
 import joblib
 import numpy as np
+from pathlib import Path
 
-from feature_engineering import add_physics_features
-from config import FEATURES
+BASE_DIR = Path(__file__).resolve().parent.parent
+MODELS_DIR = BASE_DIR / "models"
+
+from src.feature_engineering import add_physics_features
+from src.config import FEATURES
 
 
 MODEL_PATHS = {
-    "CompressorHealth": "../models/CompressorHealth_model.pkl",
-    "CombustorHealth": "../models/CombustorHealth_model.pkl",
-    "TurbineHealth": "../models/TurbineHealth_model.pkl",
-    "OverallHealth": "../models/OverallHealth_model.pkl",
-    "Thrust_N": "../models/Thrust_N_model.pkl",
-    "TSFC_g_N_s": "../models/TSFC_g_N_s_model.pkl",
+    "CompressorHealth": MODELS_DIR / "CompressorHealth_model.pkl",
+    "CombustorHealth": MODELS_DIR / "CombustorHealth_model.pkl",
+    "TurbineHealth": MODELS_DIR / "TurbineHealth_model.pkl",
+    "OverallHealth": MODELS_DIR / "OverallHealth_model.pkl",
+    "Thrust_N": MODELS_DIR / "Thrust_N_model.pkl",
+    "TSFC_g_N_s": MODELS_DIR / "TSFC_g_N_s_model.pkl",
 }
 
 
@@ -28,10 +32,14 @@ def load_models():
     models = {}
 
     for target, path in MODEL_PATHS.items():
+        if not path.exists():
+            raise FileNotFoundError(
+                f"Model file missing for {target}: {path}"
+            )
+
         models[target] = joblib.load(path)
 
     return models
-
 
 def get_tree_uncertainty(model, X):
     """

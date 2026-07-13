@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-from predict import predict_engine_state
+from src.predict import predict_engine_state
 
 
 app = FastAPI(
@@ -63,4 +63,11 @@ def predict(input_data: EngineInput):
     return {
         "input": data,
         **result
+    }
+
+@app.get("/health")
+def health():
+    return {
+        "status": "online",
+        "message": "AeroTwin backend is healthy"
     }

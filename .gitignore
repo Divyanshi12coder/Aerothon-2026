@@ -16,3 +16,6 @@ build/
 dist/
 .DS_Store
 Thumbs.db
+.venv/
+src/venv/
+*.pyc
